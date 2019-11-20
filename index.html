@@ -140,7 +140,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    a few seconds read (About 0 words)
+                    2 minutes read (About 304 words)
                 </span>
                 
                 
@@ -153,7 +153,20 @@
             
         </h1>
         <div class="content">
-            
+            <pre><code>下面介绍对特定项目设置用户名/邮箱/密码的方法
+
+1.找到项目所在目录下的 .git，进入.git文件夹，然后执行如下命令分别设置用户名和邮箱</code></pre><p>git config user.name “Affandi”</p>
+<p>git config user.email “<a href="mailto:123333333@qq.com" target="_blank" rel="noopener">123333333@qq.com</a>“</p>
+<p>然后执行命令查看config文件：cat config</p>
+<p>cat config</p>
+<p>发现里面多了刚才配置的用户名和邮箱信息user，即成功为该项目单独设置了用户名和邮箱</p>
+<p>…<br>[branch “master”]<br>    remote = origin<br>    merge = refs/heads/master<br>[user]<br>    name = Affandi<br>    email = <a href="mailto:123333333@qq.com" target="_blank" rel="noopener">123333333@qq.com</a></p>
+<pre><code>2.如果git pull 每次都要求输入用户名和密码，则可以执行如下配置</code></pre><p>git config credential.helper store</p>
+<p>执行后， cat config查看，则多了credential的内容：</p>
+<p>[user]<br>    name = Affandi<br>    email = <a href="mailto:123333333@qq.com" target="_blank" rel="noopener">123333333@qq.com</a><br>[credential]<br>        helper = store</p>
+<p>然后再回到项目目录下执行git pull/push，根据提示输入用户名和密码，输入正确后，以后再执行git pull/push 就不用输入用户名和密码了</p>
+<p>作者：Affandi<br>链接：<a href="https://www.jianshu.com/p/bac094fb0222" target="_blank" rel="noopener">https://www.jianshu.com/p/bac094fb0222</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
         </div>
         
         
