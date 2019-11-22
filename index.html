@@ -134,6 +134,107 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-22T07:57:26.000Z">2019-11-22</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    a minute read (About 201 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/11/22/PSS%E7%9A%84%E7%BC%96%E8%AF%91/">PSS的编译</a>
+            
+        </h1>
+        <div class="content">
+            <p>1、<br>fatal error: curl/curl.h: 没有那个文件或目录<br>sudo apt install libcurl4-openssl-dev</p>
+<p>2、如果在linux下使用epoll模型的话<br>请配置/etc/security/limits.conf文件。<br>在里面添加</p>
+<ul>
+<li>soft noproc 10000</li>
+<li>hard noproc 10000</li>
+<li>soft nofile 10000</li>
+<li>hard nofile 10000</li>
+</ul>
+<p>错误：ACE_Dev_Poll_Reactor::open failed inside ACE_Dev_Poll_Reactor::CTOR:<br>这个是linux的一些限制，可以配置新的值。EPOLL能处理的最大描述符数受用户可打开的最大描述符数限制，一般默认1024，可用ulimit -a查看，<br>     修改方法两个：</p>
+<p>1.ulimit -n 5120 #每次登录到shell都要修改，只对本次登录有效。</p>
+<p>2.用ROOT用户修改/etc/security/limits.conf，添加以下两行，然后重新登录即可。修配配置文件后全局有效。</p>
+<ul>
+<li>soft   nofile    5120</li>
+<li>hard   nofile    10240</li>
+</ul>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-22T03:15:27.000Z">2019-11-22</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    a few seconds read (About 67 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/11/22/Protobuf%E7%9A%84%E5%AE%89%E8%A3%85/">Protobuf的安装</a>
+            
+        </h1>
+        <div class="content">
+            <p>1、<br>sudo apt-get install autoconf automake libtool curl make g++ unzip<br>git clone <a href="https://github.com/google/protobuf.git" target="_blank" rel="noopener">https://github.com/google/protobuf.git</a><br>cd protobuf<br>git submodule update –init –recursive<br>./autogen.sh<br>./configure<br>make<br>make check<br>sudo make install<br>sudo ldconfig # refresh shared library cache.</p>
+<p>编译参数可能要加上：<br>./configure CFLAGS=”-fPIC”  CXXFLAGS=”-fPIC”</p>
+<p>2、protoc –version</p>
+<p>3\编译<br>protoc –cpp_out=. IMChat.proto</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-11-20T05:52:42.000Z">2019-11-20</time>
                 
                 
@@ -280,7 +381,7 @@
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            2
+                            4
                         </p>
                     </a>
                 </div>
@@ -425,6 +526,44 @@
         
         <article class="media">
             
+            <a href="/2019/11/22/PSS%E7%9A%84%E7%BC%96%E8%AF%91/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="PSS的编译">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-22T07:57:26.000Z">2019-11-22</time></div>
+                    <a href="/2019/11/22/PSS%E7%9A%84%E7%BC%96%E8%AF%91/" class="title has-link-black-ter is-size-6 has-text-weight-normal">PSS的编译</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/22/Protobuf%E7%9A%84%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Protobuf的安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-22T03:15:27.000Z">2019-11-22</time></div>
+                    <a href="/2019/11/22/Protobuf%E7%9A%84%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Protobuf的安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/11/20/hello/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="hello">
@@ -478,7 +617,7 @@
                     <span class="level-item">November 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
@@ -520,6 +659,44 @@
         
         <article class="media">
             
+            <a href="/2019/11/22/PSS%E7%9A%84%E7%BC%96%E8%AF%91/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="PSS的编译">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-22T07:57:26.000Z">2019-11-22</time></div>
+                    <a href="/2019/11/22/PSS%E7%9A%84%E7%BC%96%E8%AF%91/" class="title has-link-black-ter is-size-6 has-text-weight-normal">PSS的编译</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/22/Protobuf%E7%9A%84%E5%AE%89%E8%A3%85/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Protobuf的安装">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-22T03:15:27.000Z">2019-11-22</time></div>
+                    <a href="/2019/11/22/Protobuf%E7%9A%84%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Protobuf的安装</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/11/20/hello/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="hello">
@@ -573,7 +750,7 @@
                     <span class="level-item">November 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
