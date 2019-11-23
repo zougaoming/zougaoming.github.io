@@ -7,14 +7,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Tags - You And Me</title>
+<title>Tag: pss - You And Me</title>
 
 
     <meta name="description" content="总是要继续的">
-<meta name="keywords" content="pss">
 <meta property="og:type" content="website">
 <meta property="og:title" content="You And Me">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;pss&#x2F;index.html">
 <meta property="og:site_name" content="You And Me">
 <meta property="og:description" content="总是要继续的">
 <meta property="og:locale" content="en">
@@ -95,7 +94,7 @@
                 <a class="navbar-item"
                 href="/categories">Categories</a>
                 
-                <a class="navbar-item is-active"
+                <a class="navbar-item"
                 href="/tags">Tags</a>
                 
                 <a class="navbar-item"
@@ -127,25 +126,80 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card widget">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
     <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                Tags
-            </h3>
-            <div class="field is-grouped is-grouped-multiline">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/tags">Tags</a></li>
+            <li class="is-active"><a href="#" aria-current="page">pss</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-22T07:57:00.000Z">2019-11-22</time>
                 
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/pss/">
-                        <span class="tag">pss</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Cloud/">Cloud</a>
                 </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    a minute read (About 203 words)
+                </span>
+                
                 
             </div>
         </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/11/22/PSS%E7%9A%84%E7%BC%96%E8%AF%91/">PSS的编译</a>
+            
+        </h1>
+        <div class="content">
+            <p>1、</p>
+<blockquote><p>fatal error: curl/curl.h: 没有那个文件或目录<br>sudo apt install libcurl4-openssl-dev</p>
+</blockquote>
+<p>2、如果在linux下使用epoll模型的话<br>请配置/etc/security/limits.conf文件。<br>在里面添加</p>
+<ul>
+<li>soft noproc 10000</li>
+<li>hard noproc 10000</li>
+<li>soft nofile 10000</li>
+<li>hard nofile 10000</li>
+</ul>
+<p>错误：ACE_Dev_Poll_Reactor::open failed inside ACE_Dev_Poll_Reactor::CTOR:<br>这个是linux的一些限制，可以配置新的值。EPOLL能处理的最大描述符数受用户可打开的最大描述符数限制，一般默认1024，可用ulimit -a查看，<br>     修改方法两个：</p>
+<p>1.ulimit -n 5120 #每次登录到shell都要修改，只对本次登录有效。</p>
+<p>2.用ROOT用户修改/etc/security/limits.conf，添加以下两行，然后重新登录即可。修配配置文件后全局有效。</p>
+<ul>
+<li>soft   nofile    5120</li>
+<li>hard   nofile    10240</li>
+</ul>
+
+        </div>
+        
+        
+        
     </div>
-</div></div>
+</div>
+
+
+
+
+
+
+
+
+</div>
                 
 
 
