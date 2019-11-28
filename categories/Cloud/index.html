@@ -145,6 +145,171 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-23T08:10:00.000Z">2019-11-23</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Cloud/">Cloud</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9 minutes read (About 1327 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/11/23/ubuntu%E4%B8%8A-grafana-influxdb-telegraf-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">ubuntu上 grafana + influxdb + telegraf 安装配置</a>
+            
+        </h1>
+        <div class="content">
+            <p>Grafana</p>
+<p> 一个纯粹的HTML/JS应用，其功能非常强大，访问InfluxDB时不会有跨域访问的限制。只要配置好数据源为InfluxDB之后就可以，剩下的工作就是配置图表。</p>
+<p>InfluxDB</p>
+<p> 开源的分布式时序、时间和指标数据库，使用Go语言编写，无需外部依赖。其中，时间序列数据库是数据格式里包含Timestamp字段的数据，比如某一时间用户上网流量、通话详单等。但是，有什么数据不包含Timestamp呢？几乎所有的数据都可以打上一个Timestamp字段。时间序列数据更重要的一个属性是如何去查询它，包括数据的过滤、计算等。</p>
+<p>它有三大特性：<br>时序性（Time Series）：与时间相关的函数的灵活使用（例如最大、最小、求和等）；<br>度量（Metrics）：对实时大量数据进行计算；<br>事件（Event）：支持任意的事件数据，换句话说，任意事件的数据我们都可以做操作。</p>
+<p>Telegraf</p>
+<p>Telegraf是一款Go语言编写的metrics收集、处理、聚合的代理其设计目标是较小的内存使用，通过插件来构建各种服务和第三方组件的metrics收集Telegraf由4个独立的插件驱动</p>
+<p>Input Plugins<br>输入插件，收集系统、服务、第三方组件的数据<br>Processor Plugins<br>处理插件，转换、处理、过滤数据<br>Aggregator Plugins<br>聚合插件，数据特征聚合<br>Output Plugins<br>输出插件，写metrics数据</p>
+<pre><code>Grafana 负责 UI 界面的展示
+
+telegraf 做数据的收集，比如服务器集群的性能监控
+
+InfluxDb 是现在流行的时间序列数据库</code></pre><p>下面进入安装配置</p>
+<p>我是在ubuntu 18.04上安装配置的下面是安装过程：</p>
+<p>INFLUXDB<br>下载安装并启动</p>
+<p>wget <a href="https://dl.influxdata.com/influxdb/releases/influxdb_1.7.9_amd64.deb" target="_blank" rel="noopener">https://dl.influxdata.com/influxdb/releases/influxdb_1.7.9_amd64.deb</a><br>sudo dpkg -i influxdb_1.5.4_amd64.deb<br>只有刚安装完要自行开启服务，以后开机就会自动带起服务了。</p>
+<p>sudo service influxdb start</p>
+<pre><code>1</code></pre><p>连线测试</p>
+<p>influx</p>
+<pre><code>1</code></pre><p>show databases</p>
+<p>create database mydb</p>
+<p>create database yourdb</p>
+<p>show databases</p>
+<pre><code>1
+2
+3
+4
+5
+6
+7</code></pre><p>移除influxDB</p>
+<p>sudo apt-get remove influxdb</p>
+<pre><code>1</code></pre><p>Start service sudo service influxdb start</p>
+<p>stop service sudo service influxdb stop</p>
+<p>restart service sudo service influxdb restart</p>
+<p>Step2 设定<br>Influxdb 的设定档位置</p>
+<p>#open with vim<br>sudo vim /etc/influxdb/influxdb.conf</p>
+<p>#open with nano<br>sudo nano /etc/influxdb/influxdb.conf</p>
+<pre><code>1
+2
+3
+4
+5</code></pre><p>资料库的储存路径</p>
+<p>[meta]</p>
+<h1 id="Where-the-metadata-raft-database-is-stored"><a href="#Where-the-metadata-raft-database-is-stored" class="headerlink" title="Where the metadata/raft database is stored"></a>Where the metadata/raft database is stored</h1><p>  dir = “/var/lib/influxdb/meta”</p>
+<p>[data]</p>
+<h1 id="The-directory-where-the-TSM-storage-engine-stores-TSM-files"><a href="#The-directory-where-the-TSM-storage-engine-stores-TSM-files" class="headerlink" title="The directory where the TSM storage engine stores TSM files."></a>The directory where the TSM storage engine stores TSM files.</h1><p>  dir = “/var/lib/influxdb/data”</p>
+<h1 id="The-directory-where-the-TSM-storage-engine-stores-WAL-files"><a href="#The-directory-where-the-TSM-storage-engine-stores-WAL-files" class="headerlink" title="The directory where the TSM storage engine stores WAL files."></a>The directory where the TSM storage engine stores WAL files.</h1><p>  wal-dir = “/var/lib/influxdb/wal”</p>
+<pre><code>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15</code></pre><p>安全性管理(option)</p>
+<p>   Determines whether HTTP endpoint is enabled.</p>
+<p>  enabled = true</p>
+<p>   The bind address used by the HTTP service.</p>
+<p>  bind-address = “:8086”</p>
+<p>   Determines whether user authentication is enabled over HTTP/HTTPS.</p>
+<p>  auth-enabled = false</p>
+<p>step3 安全性管理<br>3.1 建立帐号</p>
+<p>3.1.1 建立管理者帐号</p>
+<p>CREATE USER <username> WITH PASSWORD ‘<password>‘ WITH ALL PRIVILEGES</password></username></p>
+<p>example<br>CREATE USER admin WITH PASSWORD ‘admin’ WITH ALL PRIVILEGES</p>
+<p>3.1.2建立一般帐号</p>
+<p>CREATE USER <username> WITH PASSWORD ‘<password>‘</password></username></p>
+<p>example:<br>CREATE USER usr WITH PASSWORD ‘1234’</p>
+<p>3.1.3 帐号一览</p>
+<p>SHOW USERS</p>
+<p>3.1.4帐号权限设定</p>
+<p>授权全部的资料库(等于管理者帐号)</p>
+<p>GRANT ALL PRIVILEGES TO <username></username></p>
+<p>example:<br>GRANT ALL PRIVILEGES TO usr</p>
+<p>全部除权</p>
+<p>REVOKE ALL PRIVILEGES FROM <username></username></p>
+<p>example:<br>REVOKE ALL PRIVILEGES FROM usr</p>
+<p>指定授权某资料库</p>
+<p>GRANT [READ,WRITE,ALL] ON <database_name> TO <username></username></database_name></p>
+<p>example:<br>GRANT ALL ON mydb TO usr</p>
+<p>指定除权某资料库</p>
+<p>REVOKE [READ,WRITE,ALL] ON <database_name> TO <username></username></database_name></p>
+<p>example:<br>REVOKE ALL ON mydb TO usr</p>
+<p>3.2 产生认证档( 自我认证)</p>
+<p>sudo openssl req -x509 -nodes -newkey rsa:2048 -keyout /etc/ssl/influxdb-selfsigned.key -out /etc/ssl/influxdb-selfsigned.crt -days <number_of_days></number_of_days></p>
+<p>#example:(建立十年的有效期)<br>sudo openssl req -x509 -nodes -newkey rsa:2048 -keyout /etc/ssl/influxdb-selfsigned.key -out /etc/ssl/influxdb-selfsigned.crt -days 3650</p>
+<p>#照程序接下來會要求寫一些基本資料<br>#懶得寫的話就一路ENTER到底吧</p>
+<p>3.3 修改设定档</p>
+<p>  #Determines whether HTTP endpoint is enabled.<br>  enabled = true</p>
+<p>  #The bind address used by the HTTP service.<br>  bind-address = “:8086”</p>
+<p>  #Determines whether user authentication is enabled over HTTP/HTTPS.<br>  auth-enabled = true</p>
+<p>  #The SSL certificate to use when HTTPS is enabled.<br>  https-certificate = “/etc/ssl/influxdb-selfsigned.crt”</p>
+<p>  #Use a separate private key location.<br>  https-private-key = “/etc/ssl/influxdb-selfsigned.key”</p>
+<p>3.4 最后记得要重启服务</p>
+<p>sudo service influxdb restart</p>
+<p>Step4 连线测试<br>4.1 加密连线</p>
+<p>#使用管理員權限登入(admin-擁有所有db的權限)<br>influx -host ‘localhost’ -port ‘8086’ -ssl -unsafeSsl -username ‘admin’ -password ‘admin’</p>
+<p>#使用一般帳號登入(usr-只有mydb的權限)<br>influx -host ‘localhost’ -port ‘8086’ -ssl -unsafeSsl -username ‘usr’ -password ‘1234’</p>
+<p>4.2帐号权限测试使用这两个帐号测试以下指令看看</p>
+<p>–有權限才能看到資料</p>
+<p>show databases<br>    通过 influxd config 查看当前配置</p>
+<pre><code>通过influxd run启动服务器</code></pre><p>启动客户端，测试一些基本的命令</p>
+<pre><code>与MySQL类似，一些常见的命令</code></pre><p>更多可参考链接： <a href="https://docs.influxdata.com/influxdb/v1.2/tools/shell/" target="_blank" rel="noopener">https://docs.influxdata.com/influxdb/v1.2/tools/shell/</a></p>
+<p>telegraf 安装</p>
+<p>安装并启动telegraf服务</p>
+<pre><code>sudo apt-get update &amp;&amp; sudo apt-get install telegraf
+sudo systemctl start telegraf</code></pre><p>配置Telegraf</p>
+<p>vi /etc/telegraf/telegraf.conf<br><img src="/images/pasted-0.png" alt="upload successful"></p>
+<h4 id="Telegraf-和ACTIVEMQ"><a href="#Telegraf-和ACTIVEMQ" class="headerlink" title="Telegraf 和ACTIVEMQ"></a>Telegraf 和ACTIVEMQ</h4><p>#Read metrics about system load &amp; uptime<br>[[inputs.system]]<br>  ##Uncomment to remove deprecated metrics.<br>  #fielddrop = [“uptime_format”]</p>
+<p>##Gather ActiveMQ metrics<br>[[inputs.activemq]]<br>###ActiveMQ WebConsole URL<br>url = “<a href="http://127.0.0.1:8161&quot;" target="_blank" rel="noopener">http://127.0.0.1:8161&quot;</a><br>###Required ActiveMQ Endpoint<br>###deprecated in 1.11; use the url option<br>server = “127.0.0.1”<br>port = 61616</p>
+<p>###Credentials for basic HTTP authentication<br>username = “admin”<br>password = “admin”<br>###Required ActiveMQ webadmin root path<br>webadmin = “admin”<br>###Maximum time to receive response.<br>response_timeout = “5s”<br>其中里面的账号密码都是WEB端的。</p>
+<p>Telegraf 通过地址 <a href="http://127.0.0.1:8161/admin/xml/queues.jsp不断的获取数据统计信息" target="_blank" rel="noopener">http://127.0.0.1:8161/admin/xml/queues.jsp不断的获取数据统计信息</a></p>
+<p>通过 <a href="http://127.0.0.1:8086/write?db=telegraf推送给InfluxDB" target="_blank" rel="noopener">http://127.0.0.1:8086/write?db=telegraf推送给InfluxDB</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-11-22T07:57:00.000Z">2019-11-22</time>
                 
                 <div class="level-item">
@@ -297,7 +462,7 @@
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            4
+                            9
                         </p>
                     </a>
                 </div>
@@ -429,7 +594,7 @@
                 <span class="level-item">Cloud</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">2</span>
+                <span class="level-item tag">3</span>
             </span>
         </a></li>
             </ul>
@@ -457,54 +622,16 @@
         
         <article class="media">
             
-            <a href="/2019/11/22/PSS%E7%9A%84%E7%BC%96%E8%AF%91/" class="media-left">
+            <a href="/2019/11/27/Maven%E7%9B%B8%E5%85%B3/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="PSS的编译">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Maven相关">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-22T07:57:00.000Z">2019-11-22</time></div>
-                    <a href="/2019/11/22/PSS%E7%9A%84%E7%BC%96%E8%AF%91/" class="title has-link-black-ter is-size-6 has-text-weight-normal">PSS的编译</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Cloud/">Cloud</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/11/22/Protobuf%E7%9A%84%E5%AE%89%E8%A3%85/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Protobuf的安装">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-22T03:15:00.000Z">2019-11-22</time></div>
-                    <a href="/2019/11/22/Protobuf%E7%9A%84%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Protobuf的安装</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Cloud/">Cloud</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/11/20/hello/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="hello">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-20T05:52:42.000Z">2019-11-20</time></div>
-                    <a href="/2019/11/20/hello/" class="title has-link-black-ter is-size-6 has-text-weight-normal">hello</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-27T05:04:32.000Z">2019-11-27</time></div>
+                    <a href="/2019/11/27/Maven%E7%9B%B8%E5%85%B3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Maven相关</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -514,16 +641,73 @@
         
         <article class="media">
             
-            <a href="/2019/11/20/hello-world/" class="media-left">
+            <a href="/2019/11/26/ubuntu%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5windows%E7%B3%BB%E7%BB%9F/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ubuntu远程桌面连接windows系统">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-20T05:39:34.723Z">2019-11-20</time></div>
-                    <a href="/2019/11/20/hello-world/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Hello World</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-26T04:45:39.000Z">2019-11-26</time></div>
+                    <a href="/2019/11/26/ubuntu%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5windows%E7%B3%BB%E7%BB%9F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ubuntu远程桌面连接windows系统</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/23/ubuntu%E4%B8%8A-grafana-influxdb-telegraf-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ubuntu上 grafana + influxdb + telegraf 安装配置">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T08:10:00.000Z">2019-11-23</time></div>
+                    <a href="/2019/11/23/ubuntu%E4%B8%8A-grafana-influxdb-telegraf-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ubuntu上 grafana + influxdb + telegraf 安装配置</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Cloud/">Cloud</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/23/ubuntu-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ubuntu 常见命令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T05:31:00.000Z">2019-11-23</time></div>
+                    <a href="/2019/11/23/ubuntu-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ubuntu 常见命令</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/23/activeMq-CPP/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="activeMq-CPP">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T04:23:52.000Z">2019-11-23</time></div>
+                    <a href="/2019/11/23/activeMq-CPP/" class="title has-link-black-ter is-size-6 has-text-weight-normal">activeMq-CPP</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -548,7 +732,7 @@
                     <span class="level-item">November 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">9</span>
                 </span>
             </a>
         </li>
@@ -597,54 +781,16 @@
         
         <article class="media">
             
-            <a href="/2019/11/22/PSS%E7%9A%84%E7%BC%96%E8%AF%91/" class="media-left">
+            <a href="/2019/11/27/Maven%E7%9B%B8%E5%85%B3/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="PSS的编译">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Maven相关">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-22T07:57:00.000Z">2019-11-22</time></div>
-                    <a href="/2019/11/22/PSS%E7%9A%84%E7%BC%96%E8%AF%91/" class="title has-link-black-ter is-size-6 has-text-weight-normal">PSS的编译</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Cloud/">Cloud</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/11/22/Protobuf%E7%9A%84%E5%AE%89%E8%A3%85/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Protobuf的安装">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-22T03:15:00.000Z">2019-11-22</time></div>
-                    <a href="/2019/11/22/Protobuf%E7%9A%84%E5%AE%89%E8%A3%85/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Protobuf的安装</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Cloud/">Cloud</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/11/20/hello/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="hello">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-20T05:52:42.000Z">2019-11-20</time></div>
-                    <a href="/2019/11/20/hello/" class="title has-link-black-ter is-size-6 has-text-weight-normal">hello</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-27T05:04:32.000Z">2019-11-27</time></div>
+                    <a href="/2019/11/27/Maven%E7%9B%B8%E5%85%B3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Maven相关</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -654,16 +800,73 @@
         
         <article class="media">
             
-            <a href="/2019/11/20/hello-world/" class="media-left">
+            <a href="/2019/11/26/ubuntu%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5windows%E7%B3%BB%E7%BB%9F/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Hello World">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ubuntu远程桌面连接windows系统">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-20T05:39:34.723Z">2019-11-20</time></div>
-                    <a href="/2019/11/20/hello-world/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Hello World</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-26T04:45:39.000Z">2019-11-26</time></div>
+                    <a href="/2019/11/26/ubuntu%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5windows%E7%B3%BB%E7%BB%9F/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ubuntu远程桌面连接windows系统</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/23/ubuntu%E4%B8%8A-grafana-influxdb-telegraf-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ubuntu上 grafana + influxdb + telegraf 安装配置">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T08:10:00.000Z">2019-11-23</time></div>
+                    <a href="/2019/11/23/ubuntu%E4%B8%8A-grafana-influxdb-telegraf-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ubuntu上 grafana + influxdb + telegraf 安装配置</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Cloud/">Cloud</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/23/ubuntu-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ubuntu 常见命令">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T05:31:00.000Z">2019-11-23</time></div>
+                    <a href="/2019/11/23/ubuntu-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ubuntu 常见命令</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/23/activeMq-CPP/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="activeMq-CPP">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T04:23:52.000Z">2019-11-23</time></div>
+                    <a href="/2019/11/23/activeMq-CPP/" class="title has-link-black-ter is-size-6 has-text-weight-normal">activeMq-CPP</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -688,7 +891,7 @@
                     <span class="level-item">November 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">9</span>
                 </span>
             </a>
         </li>
