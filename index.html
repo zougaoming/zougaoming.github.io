@@ -251,7 +251,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 minutes read (About 1327 words)
+                    9 minutes read (About 1361 words)
                 </span>
                 
                 
@@ -375,7 +375,8 @@ InfluxDb 是现在流行的时间序列数据库</code></pre><p>下面进入安�
 <pre><code>通过influxd run启动服务器</code></pre><p>启动客户端，测试一些基本的命令</p>
 <pre><code>与MySQL类似，一些常见的命令</code></pre><p>更多可参考链接： <a href="https://docs.influxdata.com/influxdb/v1.2/tools/shell/" target="_blank" rel="noopener">https://docs.influxdata.com/influxdb/v1.2/tools/shell/</a></p>
 <p>telegraf 安装</p>
-<p>安装并启动telegraf服务</p>
+<h1 id="add-key"><a href="#add-key" class="headerlink" title="add key"></a>add key</h1><p>curl -sL <a href="https://repos.influxdata.com/influxdb.key" target="_blank" rel="noopener">https://repos.influxdata.com/influxdb.key</a> | sudo apt-key add -</p>
+<h1 id="add-sources"><a href="#add-sources" class="headerlink" title="add sources"></a>add sources</h1><p>echo “deb <a href="https://repos.influxdata.com/ubuntu" target="_blank" rel="noopener">https://repos.influxdata.com/ubuntu</a> trusty stable” | sudo tee /etc/apt/sources.list.d/influxdb.list<br>安装并启动telegraf服务</p>
 <pre><code>sudo apt-get update &amp;&amp; sudo apt-get install telegraf
 sudo systemctl start telegraf</code></pre><p>配置Telegraf</p>
 <p>vi /etc/telegraf/telegraf.conf<br><img src="/images/pasted-0.png" alt="upload successful"></p>

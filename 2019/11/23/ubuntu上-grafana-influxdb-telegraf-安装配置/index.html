@@ -18,7 +18,7 @@
 <meta property="og:description" content="Grafana  一个纯粹的HTML&#x2F;JS应用，其功能非常强大，访问InfluxDB时不会有跨域访问的限制。只要配置好数据源为InfluxDB之后就可以，剩下的工作就是配置图表。 InfluxDB  开源的分布式时序、时间和指标数据库，使用Go语言编写，无需外部依赖。其中，时间序列数据库是数据格式里包含Timestamp字段的数据，比如某一时间用户上网流量、通话详单等。但是，有什么数据不包含Tim">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-11-23T08:23:37.087Z">
+<meta property="og:updated_time" content="2019-11-28T04:35:22.630Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
 
@@ -144,7 +144,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 minutes read (About 1327 words)
+                    9 minutes read (About 1361 words)
                 </span>
                 
                 
@@ -268,7 +268,8 @@ InfluxDb 是现在流行的时间序列数据库</code></pre><p>下面进入安�
 <pre><code>通过influxd run启动服务器</code></pre><p>启动客户端，测试一些基本的命令</p>
 <pre><code>与MySQL类似，一些常见的命令</code></pre><p>更多可参考链接： <a href="https://docs.influxdata.com/influxdb/v1.2/tools/shell/" target="_blank" rel="noopener">https://docs.influxdata.com/influxdb/v1.2/tools/shell/</a></p>
 <p>telegraf 安装</p>
-<p>安装并启动telegraf服务</p>
+<h1 id="add-key"><a href="#add-key" class="headerlink" title="add key"></a>add key</h1><p>curl -sL <a href="https://repos.influxdata.com/influxdb.key" target="_blank" rel="noopener">https://repos.influxdata.com/influxdb.key</a> | sudo apt-key add -</p>
+<h1 id="add-sources"><a href="#add-sources" class="headerlink" title="add sources"></a>add sources</h1><p>echo “deb <a href="https://repos.influxdata.com/ubuntu" target="_blank" rel="noopener">https://repos.influxdata.com/ubuntu</a> trusty stable” | sudo tee /etc/apt/sources.list.d/influxdb.list<br>安装并启动telegraf服务</p>
 <pre><code>sudo apt-get update &amp;&amp; sudo apt-get install telegraf
 sudo systemctl start telegraf</code></pre><p>配置Telegraf</p>
 <p>vi /etc/telegraf/telegraf.conf<br><img src="/images/pasted-0.png" alt="upload successful"></p>
