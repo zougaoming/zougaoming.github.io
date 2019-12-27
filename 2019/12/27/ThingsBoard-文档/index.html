@@ -7,18 +7,18 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>abc - You And Me</title>
+<title>ThingsBoard 文档 - You And Me</title>
 
 
-    <meta name="description" content="总是要继续的">
-<meta property="og:type" content="website">
-<meta property="og:title" content="abc">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;abc&#x2F;index.html">
+    <meta name="description" content="1、目录结构application: 应用程序主目录，整体项目打包时也是这个Module    src&#x2F;main&#x2F;java&#x2F;org.thingsboard.server: app主目录        actors: actor执行者目录        config: 配置类目录        controller: 控制器        exception: 异常处理        service">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThingsBoard 文档">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;27&#x2F;ThingsBoard-%E6%96%87%E6%A1%A3&#x2F;index.html">
 <meta property="og:site_name" content="You And Me">
-<meta property="og:description" content="总是要继续的">
+<meta property="og:description" content="1、目录结构application: 应用程序主目录，整体项目打包时也是这个Module    src&#x2F;main&#x2F;java&#x2F;org.thingsboard.server: app主目录        actors: actor执行者目录        config: 配置类目录        controller: 控制器        exception: 异常处理        service">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-11-23T03:58:55.035Z">
+<meta property="og:updated_time" content="2019-12-27T05:14:11.248Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
 
@@ -78,7 +78,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="abc" height="28">
+                <img src="/images/logo.svg" alt="ThingsBoard 文档" height="28">
             
             </a>
         </div>
@@ -132,13 +132,29 @@
     
     <div class="card-content article ">
         
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-12-27T05:13:54.000Z">2019-12-27</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 minutes read (About 886 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                abc
+                ThingsBoard 文档
             
         </h1>
         <div class="content">
-            
+            <p>1、目录结构<br>application: 应用程序主目录，整体项目打包时也是这个Module<br>    src/main/java/org.thingsboard.server: app主目录<br>        actors: actor执行者目录<br>        config: 配置类目录<br>        controller: 控制器<br>        exception: 异常处理<br>        service: 服务目录，app打包后，server要运行的服务的实现都在这里<br>            cluster: 集群服务，包括服务发现、服务实例等<br>            script: 脚本执行服务，主要是规则引擎的执行（JS）<br>            transport: 消息传输服务<br>            rpc: 远程调用服务<br>        utils: 工具类<br>common: 公共工具集、方法集模块<br>    dao-api: 数据访问对象的服务接口，在这里做定义<br>    data: 用于不同数据库之间的中间数据结构<br>    message: 消息服务的实现集，包括集群消息、TB的基础服务消息、系统类消息<br>    queue: 队列服务的实现集，用的Kafka<br>    transport: 消息传输通道服务的实现，定义公共接口，给客户端的transport层使用<br>        coap: CoAP消息传输的实现，包括适配器和客户端<br>        http: HTTP消息传输的实现<br>        mqtt: MQTT消息传输的实现，包括适配器、会话、SSL工具等<br>    util: 工具集（当前仅有一个异步回调工具）<br>dao: 数据访问对象集合，整个应用的DAO层，一般只要dao的都要data，以实现不同数据库数据结构兼容。<br>docker: 集群部署-docker容器解决方案，包含了部署环境和shell脚本<br>    haproxy: HAproxy工具的配置文件存放处<br>    tb-node: 应用程序节点配置存放目录<br>    tb-transports: 消息传输服务的配置文件，包括coap,http,mqtt<br>img: 应用图标存放处<br>k8s: 容器编排工具Kubernetes的配置文件和自动化脚本<br>msa: 微服务半自动构建模块，包含了黑盒测试、js执行引擎等<br>    black-box-tests: 黑盒测试工具<br>    js-excutor: js执行引擎，基于nodejs，用于执行规则引擎中的js代码（沙盒执行）<br>    tb: tb主应用程序配置<br>    tb-node: tb程序节点配置<br>    transport: docker中的消息传输服务的部署配置<br>    web-ui: TB的Web用户界面在docker中部署的配置,自带http server<br>netty-mqtt: TB的MQTT协议的实现，包括连接、发布、订阅、遗嘱、关闭等<br>rule-engine: TB的规则引擎，TB没有用开源的Drools等工具，而是自己开发了一套规则引擎，主要包含3个组件和1套服务接口<br>    rule-engine-api: 服务接口的实现<br>    rule-engine-components: 规则引擎组件，包含滤波器、动作、数据、脚本、延迟加载、消息、队列、RPC实现、邮件等<br>tools: 工具模块，主要实现了MQTT with SSL客户端和REST客户端。可以测试用。<br>transport: 三种消息传输服务启动器，服务的实现参考common/transport,mqtt协议的实现见netty-mqtt<br>ui: TB的用户界面，主要使用AngularJS和react组件，单页应用（要替换掉，用Vue）<br>————————————————<br>版权声明：本文为CSDN博主「Echo侯」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/houpanqi/article/details/102742429" target="_blank" rel="noopener">https://blog.csdn.net/houpanqi/article/details/102742429</a></p>
+
         </div>
         
         
@@ -183,6 +199,20 @@
 </div>
 
 
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/11/29/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/">
+                <span class="level-item">服务器配置过程</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
 </div>
@@ -723,7 +753,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="abc" height="28">
+                    <img src="/images/logo.svg" alt="ThingsBoard 文档" height="28">
                 
                 </a>
                 <p class="is-size-7">

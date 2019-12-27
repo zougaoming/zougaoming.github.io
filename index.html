@@ -134,6 +134,90 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-12-27T05:13:54.000Z">2019-12-27</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 minutes read (About 886 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/12/27/ThingsBoard-%E6%96%87%E6%A1%A3/">ThingsBoard 文档</a>
+            
+        </h1>
+        <div class="content">
+            <p>1、目录结构<br>application: 应用程序主目录，整体项目打包时也是这个Module<br>    src/main/java/org.thingsboard.server: app主目录<br>        actors: actor执行者目录<br>        config: 配置类目录<br>        controller: 控制器<br>        exception: 异常处理<br>        service: 服务目录，app打包后，server要运行的服务的实现都在这里<br>            cluster: 集群服务，包括服务发现、服务实例等<br>            script: 脚本执行服务，主要是规则引擎的执行（JS）<br>            transport: 消息传输服务<br>            rpc: 远程调用服务<br>        utils: 工具类<br>common: 公共工具集、方法集模块<br>    dao-api: 数据访问对象的服务接口，在这里做定义<br>    data: 用于不同数据库之间的中间数据结构<br>    message: 消息服务的实现集，包括集群消息、TB的基础服务消息、系统类消息<br>    queue: 队列服务的实现集，用的Kafka<br>    transport: 消息传输通道服务的实现，定义公共接口，给客户端的transport层使用<br>        coap: CoAP消息传输的实现，包括适配器和客户端<br>        http: HTTP消息传输的实现<br>        mqtt: MQTT消息传输的实现，包括适配器、会话、SSL工具等<br>    util: 工具集（当前仅有一个异步回调工具）<br>dao: 数据访问对象集合，整个应用的DAO层，一般只要dao的都要data，以实现不同数据库数据结构兼容。<br>docker: 集群部署-docker容器解决方案，包含了部署环境和shell脚本<br>    haproxy: HAproxy工具的配置文件存放处<br>    tb-node: 应用程序节点配置存放目录<br>    tb-transports: 消息传输服务的配置文件，包括coap,http,mqtt<br>img: 应用图标存放处<br>k8s: 容器编排工具Kubernetes的配置文件和自动化脚本<br>msa: 微服务半自动构建模块，包含了黑盒测试、js执行引擎等<br>    black-box-tests: 黑盒测试工具<br>    js-excutor: js执行引擎，基于nodejs，用于执行规则引擎中的js代码（沙盒执行）<br>    tb: tb主应用程序配置<br>    tb-node: tb程序节点配置<br>    transport: docker中的消息传输服务的部署配置<br>    web-ui: TB的Web用户界面在docker中部署的配置,自带http server<br>netty-mqtt: TB的MQTT协议的实现，包括连接、发布、订阅、遗嘱、关闭等<br>rule-engine: TB的规则引擎，TB没有用开源的Drools等工具，而是自己开发了一套规则引擎，主要包含3个组件和1套服务接口<br>    rule-engine-api: 服务接口的实现<br>    rule-engine-components: 规则引擎组件，包含滤波器、动作、数据、脚本、延迟加载、消息、队列、RPC实现、邮件等<br>tools: 工具模块，主要实现了MQTT with SSL客户端和REST客户端。可以测试用。<br>transport: 三种消息传输服务启动器，服务的实现参考common/transport,mqtt协议的实现见netty-mqtt<br>ui: TB的用户界面，主要使用AngularJS和react组件，单页应用（要替换掉，用Vue）<br>————————————————<br>版权声明：本文为CSDN博主「Echo侯」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/houpanqi/article/details/102742429" target="_blank" rel="noopener">https://blog.csdn.net/houpanqi/article/details/102742429</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-29T01:02:43.000Z">2019-11-29</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    a few seconds read (About 22 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/11/29/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/">服务器配置过程</a>
+            
+        </h1>
+        <div class="content">
+            <p>1、安装JAVA sudo apt install openjdk-8-jdk<br>JAVA11版本下，storm的虚拟机会报错</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-11-27T05:04:32.000Z">2019-11-27</time>
                 
                 
@@ -413,7 +497,7 @@ sudo systemctl start telegraf</code></pre><p>配置Telegraf</p>
                 <span class="level-item has-text-grey">
                     
                     
-                    a few seconds read (About 32 words)
+                    2 minutes read (About 361 words)
                 </span>
                 
                 
@@ -429,6 +513,37 @@ sudo systemctl start telegraf</code></pre><p>配置Telegraf</p>
             <p>1、<br>find ./* -name ‘<em>.</em>‘ | xargs grep ‘username’<br>内容查找</p>
 <p>2、查看端口开放的情况<br>sudo apt install net-tools<br>netstat -aptn</p>
 <p>3、update-alternatives –config java</p>
+<p>4、正文<br>回到顶部</p>
+<ol>
+<li>前言</li>
+</ol>
+<p>本教程将会演示如何设置Ubuntu16.04 Server版和Ubuntu18.04 Server版系统的静态固定IP地址。<br>回到顶部<br>2. 确认你要修改的网卡号</p>
+<p>先确认你要修改的网卡号，假设你的服务器有多张网卡：<br>1</p>
+<p>ubuntu1804:~$ ip addr</p>
+<p>我的服务器配置如下：</p>
+<p>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000<br>link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00<br>inet 127.0.0.1/8 scope host lo<br>valid_lft forever preferred_lft forever<br>inet6 ::1/128 scope host<br>valid_lft forever preferred_lft forever<br>2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000<br>link/ether 00:0c:29:f1:b5:e1 brd ff:ff:ff:ff:ff:ff<br>inet 172.16.87.140/24 brd 172.16.87.255 scope global dynamic ens33<br>valid_lft 1500sec preferred_lft 1500sec<br>inet6 fe80::20c:29ff:fef1:b5e1/64 scope link<br>valid_lft forever preferred_lft forever</p>
+<p><img src="/images/pasted-1.png" alt="upload successful"></p>
+<ol start="3">
+<li>默认的网卡配置文件</li>
+</ol>
+<p>默认情况下，网络使用DHCP</p>
+<p><img src="/images/pasted-2.png" alt="upload successful"></p>
+<p>ubuntu1804:~$ cat /etc/netplan/50-cloud-init.yaml<br>配置文件内容如下</p>
+<p>network:<br>    ethernets:<br>        ens33:<br>            dhcp4: yes<br>            addresses: []</p>
+<pre><code>version: 2</code></pre><p>　　</p>
+<ol start="4">
+<li>设置静态IP</li>
+</ol>
+<p>需要把配置文件修改为以下内容：<br>1</p>
+<p>ubuntu1804:~$ sudo vi /etc/netplan/50-cloud-init.yaml</p>
+<p>假设IP地址修改为192.168.1.100，子网掩码24位即255.255.255.0，网关设置为192.168.1.1，DNS1：223.5.5.5，DNS2：223.6.6.6</p>
+<p>network:<br>    ethernets:<br>        ens33:<br>            dhcp4: no<br>            addresses: [192.168.1.100/24]<br>            optional: true<br>            gateway4: 192.168.1.1<br>            nameservers:<br>                    addresses: [223.5.5.5,223.6.6.6]</p>
+<pre><code>version: 2</code></pre><p><img src="/images/pasted-3.png" alt="upload successful"><br>　　<br>5. 应用新配置</p>
+<p>ubuntu1804:~$ sudo netplan apply</p>
+<p>使用ip addr检查新地址<br>ubuntu1804:~$ ip addr</p>
+<ol start="6">
+<li>测试网络连通性<br>ubuntu1804:~$ ping 192.168.1.100</li>
+</ol>
 
         </div>
         
@@ -1087,60 +1202,25 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
 
 
 
+
     
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-20T05:39:34.723Z">2019-11-20</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    a minute read (About 123 words)
-                </span>
-                
-                
-            </div>
+<div class="card card-transparent">
+    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        <div class="pagination-previous is-invisible is-hidden-mobile">
+            <a class="is-flex-grow has-text-black-ter" href="/page/0/">Previous</a>
         </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/11/20/hello-world/">Hello World</a>
-            
-        </h1>
-        <div class="content">
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="hljs-string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
+        <div class="pagination-next">
+            <a class="is-flex-grow has-text-black-ter" href="/page/2/">Next</a>
         </div>
-        
-        
-        
-    </div>
+        <ul class="pagination-list is-hidden-mobile">
+            
+            <li><a class="pagination-link is-current" href="/">1</a></li>
+            
+            <li><a class="pagination-link has-text-black-ter" href="/page/2/">2</a></li>
+            
+        </ul>
+    </nav>
 </div>
-
-
-
-
-
-
-
-
 </div>
                 
 
@@ -1186,7 +1266,7 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            9
+                            11
                         </p>
                     </a>
                 </div>
@@ -1346,6 +1426,44 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
         
         <article class="media">
             
+            <a href="/2019/12/27/ThingsBoard-%E6%96%87%E6%A1%A3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ThingsBoard 文档">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-27T05:13:54.000Z">2019-12-27</time></div>
+                    <a href="/2019/12/27/ThingsBoard-%E6%96%87%E6%A1%A3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ThingsBoard 文档</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/29/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="服务器配置过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-29T01:02:43.000Z">2019-11-29</time></div>
+                    <a href="/2019/11/29/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/" class="title has-link-black-ter is-size-6 has-text-weight-normal">服务器配置过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/11/27/Maven%E7%9B%B8%E5%85%B3/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="Maven相关">
@@ -1401,44 +1519,6 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/11/23/ubuntu-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ubuntu 常见命令">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T05:31:00.000Z">2019-11-23</time></div>
-                    <a href="/2019/11/23/ubuntu-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ubuntu 常见命令</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/11/23/activeMq-CPP/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="activeMq-CPP">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T04:23:52.000Z">2019-11-23</time></div>
-                    <a href="/2019/11/23/activeMq-CPP/" class="title has-link-black-ter is-size-6 has-text-weight-normal">activeMq-CPP</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
         
@@ -1451,12 +1531,23 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2019/11/">
                 <span class="level-start">
                     <span class="level-item">November 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">9</span>
+                    <span class="level-item tag">10</span>
                 </span>
             </a>
         </li>
@@ -1505,6 +1596,44 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
         
         <article class="media">
             
+            <a href="/2019/12/27/ThingsBoard-%E6%96%87%E6%A1%A3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ThingsBoard 文档">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-27T05:13:54.000Z">2019-12-27</time></div>
+                    <a href="/2019/12/27/ThingsBoard-%E6%96%87%E6%A1%A3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ThingsBoard 文档</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/29/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="服务器配置过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-29T01:02:43.000Z">2019-11-29</time></div>
+                    <a href="/2019/11/29/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/" class="title has-link-black-ter is-size-6 has-text-weight-normal">服务器配置过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/11/27/Maven%E7%9B%B8%E5%85%B3/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="Maven相关">
@@ -1560,44 +1689,6 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/11/23/ubuntu-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ubuntu 常见命令">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T05:31:00.000Z">2019-11-23</time></div>
-                    <a href="/2019/11/23/ubuntu-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ubuntu 常见命令</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/11/23/activeMq-CPP/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="activeMq-CPP">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T04:23:52.000Z">2019-11-23</time></div>
-                    <a href="/2019/11/23/activeMq-CPP/" class="title has-link-black-ter is-size-6 has-text-weight-normal">activeMq-CPP</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
     
@@ -1610,12 +1701,23 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2019/11/">
                 <span class="level-start">
                     <span class="level-item">November 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">9</span>
+                    <span class="level-item tag">10</span>
                 </span>
             </a>
         </li>

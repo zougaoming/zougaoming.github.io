@@ -10,15 +10,15 @@
 <title>ubuntu 常见命令 - You And Me</title>
 
 
-    <meta name="description" content="1、find .&#x2F;* -name ‘.‘ | xargs grep ‘username’内容查找 2、查看端口开放的情况sudo apt install net-toolsnetstat -aptn 3、update-alternatives –config java">
+    <meta name="description" content="1、find .&#x2F;* -name ‘.‘ | xargs grep ‘username’内容查找 2、查看端口开放的情况sudo apt install net-toolsnetstat -aptn 3、update-alternatives –config java 4、正文回到顶部  前言  本教程将会演示如何设置Ubuntu16.04 Server版和Ubuntu18.04 Server版系">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ubuntu 常见命令">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;23&#x2F;ubuntu-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4&#x2F;index.html">
 <meta property="og:site_name" content="You And Me">
-<meta property="og:description" content="1、find .&#x2F;* -name ‘.‘ | xargs grep ‘username’内容查找 2、查看端口开放的情况sudo apt install net-toolsnetstat -aptn 3、update-alternatives –config java">
+<meta property="og:description" content="1、find .&#x2F;* -name ‘.‘ | xargs grep ‘username’内容查找 2、查看端口开放的情况sudo apt install net-toolsnetstat -aptn 3、update-alternatives –config java 4、正文回到顶部  前言  本教程将会演示如何设置Ubuntu16.04 Server版和Ubuntu18.04 Server版系">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-11-27T05:05:50.408Z">
+<meta property="og:updated_time" content="2019-11-29T00:59:29.357Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;og_image.png">
 
@@ -140,7 +140,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    a few seconds read (About 32 words)
+                    2 minutes read (About 361 words)
                 </span>
                 
                 
@@ -156,6 +156,37 @@
             <p>1、<br>find ./* -name ‘<em>.</em>‘ | xargs grep ‘username’<br>内容查找</p>
 <p>2、查看端口开放的情况<br>sudo apt install net-tools<br>netstat -aptn</p>
 <p>3、update-alternatives –config java</p>
+<p>4、正文<br>回到顶部</p>
+<ol>
+<li>前言</li>
+</ol>
+<p>本教程将会演示如何设置Ubuntu16.04 Server版和Ubuntu18.04 Server版系统的静态固定IP地址。<br>回到顶部<br>2. 确认你要修改的网卡号</p>
+<p>先确认你要修改的网卡号，假设你的服务器有多张网卡：<br>1</p>
+<p>ubuntu1804:~$ ip addr</p>
+<p>我的服务器配置如下：</p>
+<p>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000<br>link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00<br>inet 127.0.0.1/8 scope host lo<br>valid_lft forever preferred_lft forever<br>inet6 ::1/128 scope host<br>valid_lft forever preferred_lft forever<br>2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000<br>link/ether 00:0c:29:f1:b5:e1 brd ff:ff:ff:ff:ff:ff<br>inet 172.16.87.140/24 brd 172.16.87.255 scope global dynamic ens33<br>valid_lft 1500sec preferred_lft 1500sec<br>inet6 fe80::20c:29ff:fef1:b5e1/64 scope link<br>valid_lft forever preferred_lft forever</p>
+<p><img src="/images/pasted-1.png" alt="upload successful"></p>
+<ol start="3">
+<li>默认的网卡配置文件</li>
+</ol>
+<p>默认情况下，网络使用DHCP</p>
+<p><img src="/images/pasted-2.png" alt="upload successful"></p>
+<p>ubuntu1804:~$ cat /etc/netplan/50-cloud-init.yaml<br>配置文件内容如下</p>
+<p>network:<br>    ethernets:<br>        ens33:<br>            dhcp4: yes<br>            addresses: []</p>
+<pre><code>version: 2</code></pre><p>　　</p>
+<ol start="4">
+<li>设置静态IP</li>
+</ol>
+<p>需要把配置文件修改为以下内容：<br>1</p>
+<p>ubuntu1804:~$ sudo vi /etc/netplan/50-cloud-init.yaml</p>
+<p>假设IP地址修改为192.168.1.100，子网掩码24位即255.255.255.0，网关设置为192.168.1.1，DNS1：223.5.5.5，DNS2：223.6.6.6</p>
+<p>network:<br>    ethernets:<br>        ens33:<br>            dhcp4: no<br>            addresses: [192.168.1.100/24]<br>            optional: true<br>            gateway4: 192.168.1.1<br>            nameservers:<br>                    addresses: [223.5.5.5,223.6.6.6]</p>
+<pre><code>version: 2</code></pre><p><img src="/images/pasted-3.png" alt="upload successful"><br>　　<br>5. 应用新配置</p>
+<p>ubuntu1804:~$ sudo netplan apply</p>
+<p>使用ip addr检查新地址<br>ubuntu1804:~$ ip addr</p>
+<ol start="6">
+<li>测试网络连通性<br>ubuntu1804:~$ ping 192.168.1.100</li>
+</ol>
 
         </div>
         
@@ -269,7 +300,7 @@
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            9
+                            11
                         </p>
                     </a>
                 </div>
@@ -429,6 +460,44 @@
         
         <article class="media">
             
+            <a href="/2019/12/27/ThingsBoard-%E6%96%87%E6%A1%A3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ThingsBoard 文档">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-27T05:13:54.000Z">2019-12-27</time></div>
+                    <a href="/2019/12/27/ThingsBoard-%E6%96%87%E6%A1%A3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ThingsBoard 文档</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/29/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="服务器配置过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-29T01:02:43.000Z">2019-11-29</time></div>
+                    <a href="/2019/11/29/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/" class="title has-link-black-ter is-size-6 has-text-weight-normal">服务器配置过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/11/27/Maven%E7%9B%B8%E5%85%B3/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="Maven相关">
@@ -484,44 +553,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/11/23/ubuntu-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ubuntu 常见命令">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T05:31:00.000Z">2019-11-23</time></div>
-                    <a href="/2019/11/23/ubuntu-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ubuntu 常见命令</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/11/23/activeMq-CPP/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="activeMq-CPP">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T04:23:52.000Z">2019-11-23</time></div>
-                    <a href="/2019/11/23/activeMq-CPP/" class="title has-link-black-ter is-size-6 has-text-weight-normal">activeMq-CPP</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
         
@@ -534,12 +565,23 @@
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2019/11/">
                 <span class="level-start">
                     <span class="level-item">November 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">9</span>
+                    <span class="level-item tag">10</span>
                 </span>
             </a>
         </li>
@@ -588,6 +630,44 @@
         
         <article class="media">
             
+            <a href="/2019/12/27/ThingsBoard-%E6%96%87%E6%A1%A3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ThingsBoard 文档">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-27T05:13:54.000Z">2019-12-27</time></div>
+                    <a href="/2019/12/27/ThingsBoard-%E6%96%87%E6%A1%A3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ThingsBoard 文档</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/11/29/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="服务器配置过程">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-29T01:02:43.000Z">2019-11-29</time></div>
+                    <a href="/2019/11/29/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/" class="title has-link-black-ter is-size-6 has-text-weight-normal">服务器配置过程</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/11/27/Maven%E7%9B%B8%E5%85%B3/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="Maven相关">
@@ -643,44 +723,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/11/23/ubuntu-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ubuntu 常见命令">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T05:31:00.000Z">2019-11-23</time></div>
-                    <a href="/2019/11/23/ubuntu-%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ubuntu 常见命令</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/11/23/activeMq-CPP/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="activeMq-CPP">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T04:23:52.000Z">2019-11-23</time></div>
-                    <a href="/2019/11/23/activeMq-CPP/" class="title has-link-black-ter is-size-6 has-text-weight-normal">activeMq-CPP</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
     
@@ -693,12 +735,23 @@
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2019/11/">
                 <span class="level-start">
                     <span class="level-item">November 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">9</span>
+                    <span class="level-item tag">10</span>
                 </span>
             </a>
         </li>
