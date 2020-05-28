@@ -134,6 +134,74 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-05-28T01:21:00.000Z">2020-05-28</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Kafka/">Kafka</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 minutes read (About 517 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/05/28/kafka-groupid%E6%B6%88%E8%B4%B9%E8%B5%B7%E5%A7%8B%E4%BD%8D%E7%BD%AE/">kafka groupid消费起始位置</a>
+            
+        </h1>
+        <div class="content">
+            <p>设置消费者properties的两个参数</p>
+<p>consumer.group.id</p>
+<p>properties.setProperty(“auto.offset.reset”, “earliest”) // latest</p>
+<p>注意：</p>
+<p>只要不更改group.id，每次重新消费kafka，都是从上次消费结束的地方继续开始，不论”auto.offset.reset”属性设置的是什么</p>
+<p>场景一：Kafka上在实时被灌入数据，但kafka上已经积累了两天的数据，如何从最新的offset开始消费？</p>
+<p>（最新指相对于当前系统时间最新）</p>
+<p>1.将group.id换成新的名字(相当于加入新的消费组)</p>
+<p>2.网上文章写还要设置 properties.setProperty(“auto.offset.reset”, “latest”)</p>
+<p>实验发现即使不设置这个，只要group.id是全新的，就会从最新的的offset开始消费</p>
+<p>场景二：kafka在实时在灌入数据，kafka上已经积累了两天的数据，如何从两天前最开始的位置消费？</p>
+<p>1.将group.id换成新的名字</p>
+<p>2.properties.setProperty(“auto.offset.reset”, “earliest”)</p>
+<p>场景三：不更改group.id，只是添加了properties.setProperty(“auto.offset.reset”, “earliest”)，consumer会从两天前最开始的位置消费吗？</p>
+<p>不会，只要不更改消费组，只会从上次消费结束的地方继续消费</p>
+<p>场景四：不更改group.id，只是添加了properties.setProperty(“auto.offset.reset”, “latest”)，consumer会从距离现在最近的位置消费吗？</p>
+<p>不会，只要不更改消费组，只会从上次消费结束的地方继续消费</p>
+<p>应用：</p>
+<p>正式打包上线前应该使用新的group.id，以便于从kafka最新的位置开始消费</p>
+<p>只要将group.id换成全新的，不论”auto.offset.reset”是否设置，设置成什么，都会从最新的位置开始消费</p>
+<p><img src="/images/pasted-4.png" alt="upload successful"></p>
+<p>以上都是我在实验中自己测试的，后来到网上找到一篇博客也在讲这个，盗用里面一张图</p>
+<p>原文地址 <a href="https://blog.csdn.net/u011784767/article/details/78663168" target="_blank" rel="noopener">https://blog.csdn.net/u011784767/article/details/78663168</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-12-27T05:13:54.000Z">2019-12-27</time>
                 
                 
@@ -1148,60 +1216,6 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
 
 
 
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-20T05:52:42.000Z">2019-11-20</time>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    2 minutes read (About 304 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/11/20/hello/">hello</a>
-            
-        </h1>
-        <div class="content">
-            <pre><code>下面介绍对特定项目设置用户名/邮箱/密码的方法
-
-1.找到项目所在目录下的 .git，进入.git文件夹，然后执行如下命令分别设置用户名和邮箱</code></pre><p>git config user.name “Affandi”</p>
-<p>git config user.email “<a href="mailto:123333333@qq.com" target="_blank" rel="noopener">123333333@qq.com</a>“</p>
-<p>然后执行命令查看config文件：cat config</p>
-<p>cat config</p>
-<p>发现里面多了刚才配置的用户名和邮箱信息user，即成功为该项目单独设置了用户名和邮箱</p>
-<p>…<br>[branch “master”]<br>    remote = origin<br>    merge = refs/heads/master<br>[user]<br>    name = Affandi<br>    email = <a href="mailto:123333333@qq.com" target="_blank" rel="noopener">123333333@qq.com</a></p>
-<pre><code>2.如果git pull 每次都要求输入用户名和密码，则可以执行如下配置</code></pre><p>git config credential.helper store</p>
-<p>执行后， cat config查看，则多了credential的内容：</p>
-<p>[user]<br>    name = Affandi<br>    email = <a href="mailto:123333333@qq.com" target="_blank" rel="noopener">123333333@qq.com</a><br>[credential]<br>        helper = store</p>
-<p>然后再回到项目目录下执行git pull/push，根据提示输入用户名和密码，输入正确后，以后再执行git pull/push 就不用输入用户名和密码了</p>
-<p>作者：Affandi<br>链接：<a href="https://www.jianshu.com/p/bac094fb0222" target="_blank" rel="noopener">https://www.jianshu.com/p/bac094fb0222</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -1266,7 +1280,7 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            11
+                            12
                         </p>
                     </a>
                 </div>
@@ -1274,11 +1288,11 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Category
+                        Categories
                     </p>
                     <a href="/categories">
                         <p class="title has-text-weight-normal">
-                            1
+                            2
                         </p>
                     </a>
                 </div>
@@ -1286,11 +1300,11 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Tag
+                        Tags
                     </p>
                     <a href="/tags">
                         <p class="title has-text-weight-normal">
-                            1
+                            2
                         </p>
                     </a>
                 </div>
@@ -1400,6 +1414,14 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
             <span class="level-end">
                 <span class="level-item tag">3</span>
             </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Kafka/">
+            <span class="level-start">
+                <span class="level-item">Kafka</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
         </a></li>
             </ul>
         </div>
@@ -1411,7 +1433,7 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/pss/" style="font-size: 10px;">pss</a>
+        <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/pss/" style="font-size: 10px;">pss</a>
     </div>
 </div>
     
@@ -1423,6 +1445,25 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
         <h3 class="menu-label">
             Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/05/28/kafka-groupid%E6%B6%88%E8%B4%B9%E8%B5%B7%E5%A7%8B%E4%BD%8D%E7%BD%AE/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="kafka groupid消费起始位置">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-28T01:21:00.000Z">2020-05-28</time></div>
+                    <a href="/2020/05/28/kafka-groupid%E6%B6%88%E8%B4%B9%E8%B5%B7%E5%A7%8B%E4%BD%8D%E7%BD%AE/" class="title has-link-black-ter is-size-6 has-text-weight-normal">kafka groupid消费起始位置</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Kafka/">Kafka</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1500,25 +1541,6 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/11/23/ubuntu%E4%B8%8A-grafana-influxdb-telegraf-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ubuntu上 grafana + influxdb + telegraf 安装配置">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T08:10:00.000Z">2019-11-23</time></div>
-                    <a href="/2019/11/23/ubuntu%E4%B8%8A-grafana-influxdb-telegraf-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ubuntu上 grafana + influxdb + telegraf 安装配置</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Cloud/">Cloud</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
         
@@ -1529,6 +1551,17 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/12/">
@@ -1564,6 +1597,13 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
                 Tags
             </h3>
             <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Kafka/">
+                        <span class="tag">Kafka</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/tags/pss/">
@@ -1596,6 +1636,25 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
         
         <article class="media">
             
+            <a href="/2020/05/28/kafka-groupid%E6%B6%88%E8%B4%B9%E8%B5%B7%E5%A7%8B%E4%BD%8D%E7%BD%AE/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="kafka groupid消费起始位置">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-28T01:21:00.000Z">2020-05-28</time></div>
+                    <a href="/2020/05/28/kafka-groupid%E6%B6%88%E8%B4%B9%E8%B5%B7%E5%A7%8B%E4%BD%8D%E7%BD%AE/" class="title has-link-black-ter is-size-6 has-text-weight-normal">kafka groupid消费起始位置</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Kafka/">Kafka</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/12/27/ThingsBoard-%E6%96%87%E6%A1%A3/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="ThingsBoard 文档">
@@ -1670,25 +1729,6 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/11/23/ubuntu%E4%B8%8A-grafana-influxdb-telegraf-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ubuntu上 grafana + influxdb + telegraf 安装配置">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-23T08:10:00.000Z">2019-11-23</time></div>
-                    <a href="/2019/11/23/ubuntu%E4%B8%8A-grafana-influxdb-telegraf-%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ubuntu上 grafana + influxdb + telegraf 安装配置</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Cloud/">Cloud</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
     
@@ -1699,6 +1739,17 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/12/">
@@ -1736,6 +1787,13 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/Kafka/">
+                        <span class="tag">Kafka</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/pss/">
                         <span class="tag">pss</span>
                         <span class="tag is-grey">1</span>
@@ -1763,7 +1821,7 @@ make  </code></pre><p>ubuntu下解决expat.h: No such file or directory的问题
                 
                 </a>
                 <p class="is-size-7">
-                &copy; 2019 John Doe&nbsp;
+                &copy; 2020 John Doe&nbsp;
                 Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
                         href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
                 
